@@ -1,6 +1,6 @@
 from django.db import models
 
-class MockedResource(models.Model):
+class MockResource(models.Model):
     name = models.CharField(max_length=100)
     data = models.TextField()
 
