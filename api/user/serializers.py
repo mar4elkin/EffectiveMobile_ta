@@ -2,10 +2,13 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from access.models import UserRole
-from mockapp.models import MockResource
 
 
 User = get_user_model()
+
+
+class EmptySerializer(serializers.Serializer):
+    pass
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -64,14 +67,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
-
-
-class MockResourceSerializer(serializers.ModelSerializer):
-    detail_url = serializers.HyperlinkedIdentityField(
-        view_name="content-detail",
-        lookup_field="pk",
-    )
-
-    class Meta:
-        model = MockResource
-        fields = ("id", "detail_url", "name", "data")
