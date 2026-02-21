@@ -10,6 +10,9 @@ class MockResourceAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
+        if not request.user.is_authenticated:
+            return queryset.none()
+
         if request.user.is_superuser:
             return queryset
 
@@ -20,11 +23,15 @@ class MockResourceAdmin(admin.ModelAdmin):
         return queryset.annotate(max_level=Max("access_role__level")).filter(max_level__gte=user_min_level)
 
     def has_module_permission(self, request):
+        if not request.user.is_authenticated:
+            return False
         if request.user.is_superuser:
             return True
         return self.get_queryset(request).exists()
 
     def has_view_permission(self, request, obj=None):
+        if not request.user.is_authenticated:
+            return False
         if obj is None:
             return self.has_module_permission(request)
         return obj.can_user_view(request.user)
