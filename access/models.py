@@ -1,5 +1,15 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from effective_mobile_ta import settings
+
+
+ACTION_CHOICES = (
+    ("read", "Read"),
+    ("create", "Create"),
+    ("update", "Update"),
+    ("delete", "Delete"),
+)
+
 
 class Role(models.Model):
     code = models.CharField(max_length=50, unique=True)
@@ -10,17 +20,23 @@ class Role(models.Model):
         return self.code
 
 
-class Action(models.Model):
-    code = models.CharField(max_length=50, unique=True)
-    name = models.CharField(max_length=100)
+ALLOWED_ACTION_CODES = {code for code, _ in ACTION_CHOICES}
 
-    def __str__(self):
-        return self.code
+
+def validate_action_codes(value):
+    if not isinstance(value, list):
+        raise ValidationError("Action codes must be a list.")
+    unknown_codes = [code for code in value if code not in ALLOWED_ACTION_CODES]
+    if unknown_codes:
+        raise ValidationError(f"Unknown action codes: {', '.join(sorted(set(unknown_codes)))}")
 
 
 class RoleAction(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name="permissions")
-    actions = models.ManyToManyField(Action, related_name="role_permissions", blank=True)
+    action_codes = models.JSONField(default=list, blank=True, validators=[validate_action_codes])
+
+    def __str__(self):
+        return f"{self.role.code}:{','.join(self.action_codes)}"
 
 
 class UserRole(models.Model):
@@ -31,4 +47,4 @@ class UserRole(models.Model):
         unique_together = ("user", "role")
 
     def __str__(self):
-        return f"{self.user_id}:{self.role.code}"
+        return f"{self.user} - {self.role.code}"
