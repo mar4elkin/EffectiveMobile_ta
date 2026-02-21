@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'access.apps.AccessConfig',
     'mockapp.apps.MockappConfig',
+    'api.apps.ApiConfig',
     'rest_framework',
 ]
 
