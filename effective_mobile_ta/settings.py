@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'access.apps.AccessConfig',
+    'mockapp.apps.MockappConfig',
     'rest_framework',
 ]
 
