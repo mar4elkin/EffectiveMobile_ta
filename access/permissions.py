@@ -1,6 +1,7 @@
 from rest_framework import exceptions, permissions
 
 from access.models import RoleAction
+from access.utils import is_admin_user
 
 
 class AccessResourcePermission(permissions.BasePermission):
@@ -21,7 +22,7 @@ class AccessResourcePermission(permissions.BasePermission):
         return user.user_roles.values_list("role_id", flat=True)
 
     def _has_action_permission(self, user, action_code):
-        if user.is_superuser:
+        if user.is_superuser or is_admin_user(user):
             return True
         if action_code is None:
             return False
@@ -42,7 +43,7 @@ class AccessResourcePermission(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         user = request.user
-        if user.is_superuser:
+        if user.is_superuser or is_admin_user(user):
             return True
 
         if not self._has_action_permission(user, self._action_code(request)):

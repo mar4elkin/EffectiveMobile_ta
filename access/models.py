@@ -14,7 +14,7 @@ ACTION_CHOICES = (
 class Role(models.Model):
     code = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=100)
-    level = models.PositiveIntegerField(default=1, db_index=True)
+    level = models.PositiveIntegerField(default=1, db_index=True, unique=True)
 
     def __str__(self):
         return self.code
