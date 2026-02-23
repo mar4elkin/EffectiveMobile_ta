@@ -1,0 +1,21 @@
+﻿# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual env / local config
+.venv/
+.env
+
+# VCS / IDE
+.git/
+.idea/
+
+# Local databases/logs
+db.sqlite3
+*.log
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
