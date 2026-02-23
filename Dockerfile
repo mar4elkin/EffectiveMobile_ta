@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["gunicorn", "effective_mobile_ta.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py load_initial_data_once && python manage.py collectstatic --noinput && gunicorn effective_mobile_ta.wsgi:application --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-3}"]

@@ -1,0 +1,143 @@
+[
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$aFsnJVna6u4c9DRU7VLaCo$RwhZj4iTyh2JD37zg4/M0dvOyh2iwYhtXn0mZMft4TU=",
+    "last_login": "2026-02-23T21:08:45Z",
+    "is_superuser": true,
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-02-23T21:08:31Z",
+    "email": "admin@mail.com",
+    "first_name": "Admin name",
+    "last_name": "Admin last name",
+    "middle_name": "Admin middle name",
+    "deleted_at": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$tpJpi3vPsgLx1aMvOkBa6f$D8orP4ZJlmp8M2Hj2Hl+fTGZD1ugKtkxvkapbd0XuoY=",
+    "last_login": null,
+    "is_superuser": false,
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-23T21:09:02Z",
+    "email": "manager@mail.com",
+    "first_name": "Manager name",
+    "last_name": "Manager last name",
+    "middle_name": "Manager middle name",
+    "deleted_at": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$7BbIQ4c5SH5ljVEhIEKeXI$7MzelUPwQhW2RRb+geweoRk6RV3ncfzr1DIixc+2iUg=",
+    "last_login": null,
+    "is_superuser": false,
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-23T21:10:27Z",
+    "email": "user@mail.com",
+    "first_name": "User name",
+    "last_name": "User last name",
+    "middle_name": "User middle name",
+    "deleted_at": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "access.role",
+  "pk": 1,
+  "fields": {
+    "code": "admin",
+    "name": "admin",
+    "level": 1
+  }
+},
+{
+  "model": "access.role",
+  "pk": 2,
+  "fields": {
+    "code": "viewer",
+    "name": "viewer",
+    "level": 3
+  }
+},
+{
+  "model": "access.role",
+  "pk": 3,
+  "fields": {
+    "code": "manager",
+    "name": "manager",
+    "level": 2
+  }
+},
+{
+  "model": "access.userrole",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "role": 1
+  }
+},
+{
+  "model": "access.userrole",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "role": 3
+  }
+},
+{
+  "model": "access.userrole",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "role": 2
+  }
+},
+{
+  "model": "mockapp.mockresource",
+  "pk": 1,
+  "fields": {
+    "name": "3. Resource for all users",
+    "data": "some data",
+    "access_role": [
+      2
+    ]
+  }
+},
+{
+  "model": "mockapp.mockresource",
+  "pk": 2,
+  "fields": {
+    "name": "2. Resource for managers and admins",
+    "data": "data?",
+    "access_role": [
+      3
+    ]
+  }
+},
+{
+  "model": "mockapp.mockresource",
+  "pk": 3,
+  "fields": {
+    "name": "1. Resource only for admins",
+    "data": "some data",
+    "access_role": [
+      1
+    ]
+  }
+}
+]
